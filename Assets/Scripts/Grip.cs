@@ -3,15 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Valve.VR.InteractionSystem;
 
-
+[RequireComponent(typeof ( Interactable))]
 public class Grip : MonoBehaviour
 {
     private Interactable interactable;
     [SerializeField] GrabTypes grabtypes;
-	[SerializeField] Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & ( ~Hand.AttachmentFlags.SnapOnAttach ) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+    [EnumFlags]
+	[SerializeField] Hand.AttachmentFlags  attachmentFlags = Hand.defaultAttachmentFlags & ( ~Hand.AttachmentFlags.SnapOnAttach ) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+    [EnumFlags]
+    [SerializeField] Hand.AttachmentFlags  secondGripAttachmentFlags = Hand.defaultAttachmentFlags | (Hand.AttachmentFlags.SecondHand);
+    WeaponRecoil recoil;
     //-------------------------------------------------
     // Called when a Hand starts hovering over this object
     //-------------------------------------------------
+
+    void Awake(){
+        interactable = GetComponent<Interactable>();
+        recoil = GetComponent<WeaponRecoil>();
+    }
     private void OnHandHoverBegin(Hand hand)
     {
 
@@ -34,15 +43,28 @@ public class Grip : MonoBehaviour
     {
         GrabTypes startingGrabType = hand.GetGrabStarting(grabtypes);
         bool isGrabed = hand.IsGrabEnding(gameObject);
-
+        bool otherHandIsGrabed = hand.otherHand.IsGrabEnding(gameObject);
 
         if(isGrabed){
-            hand.AttachObject(gameObject , grabtypes , attachmentFlags)
+            if(!otherHandIsGrabed){
+                 hand.AttachObject(gameObject , grabtypes , attachmentFlags);
+            }else {
+                hand.AttachObject(gameObject,grabtypes, secondGripAttachmentFlags);
+            }
+           
             hand.HoverLock(interactable);
+            if(recoil != null){
+                recoil.AddGrip();
+            }
         }
+        
 
         if(!isGrabed){
-
+            hand.DetachObject(gameObject);
+            hand.HoverUnlock(interactable);
+            if(recoil != null){
+                recoil.RemoveGrip();
+            }
         }
     }
 

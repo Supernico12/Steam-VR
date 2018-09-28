@@ -32,6 +32,7 @@ namespace Valve.VR.InteractionSystem
             TurnOnKinematic = 1 << 5, // The object will not respond to external physics.
             TurnOffGravity = 1 << 6, // The object will not respond to external physics.
             AllowSidegrade = 1 << 7, // The object is able to switch from a pinch grab to a grip grab. Decreases likelyhood of a good throw but also decreases likelyhood of accidental drop
+            SecondHand = 1 << 8, // The Object Rotates Acording to the Position of Both Hands.       
         };
 
         public const AttachmentFlags defaultAttachmentFlags = AttachmentFlags.ParentToHand |
@@ -474,6 +475,10 @@ namespace Valve.VR.InteractionSystem
                     attachedObject.attachedRigidbodyUsedGravity = attachedObject.attachedRigidbody.useGravity;
                     attachedObject.attachedRigidbody.useGravity = false;
                 }
+            }
+
+            if(attachedObject.HasAttachFlag(AttachmentFlags.SecondHand)){
+                SetTwoHandedObject(attachedObject.attachedObject);
             }
 
             attachedObjects.Add(attachedObject);
@@ -1026,11 +1031,21 @@ namespace Valve.VR.InteractionSystem
             }
         }
 
+        public void SetTwoHandedObject(GameObject attachedObject){
+            float rotSpeed = 100* Time.deltaTime;
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation , otherHand.transform.rotation,rotSpeed);
+            attachedObject.transform.rotation = rotation;
+            // Vector3 direction;
+        }
+
         protected const float MaxVelocityChange = 10f;
-        protected const float VelocityMagic = 6000f;
+        protected  float VelocityMagic = 6000f;
         protected const float AngularVelocityMagic = 50f;
         protected const float MaxAngularVelocityChange = 20f;
 
+        public void SetMovementVelocity (float newVelocity){
+            VelocityMagic = newVelocity;
+        }
         protected void UpdateAttachedVelocity(AttachedObject attachedObjectInfo)
         {
             float scale = SteamVR_Utils.GetLossyScale(currentAttachedObjectInfo.Value.handAttachmentPointTransform);
