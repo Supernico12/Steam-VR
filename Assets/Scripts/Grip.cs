@@ -3,23 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using Valve.VR.InteractionSystem;
 
-[RequireComponent(typeof ( Interactable))]
+[RequireComponent(typeof(Interactable))]
 public class Grip : MonoBehaviour
 {
     private Interactable interactable;
     [SerializeField] GrabTypes grabtypes;
     [EnumFlags]
-	[SerializeField] Hand.AttachmentFlags  attachmentFlags = Hand.defaultAttachmentFlags & ( ~Hand.AttachmentFlags.SnapOnAttach ) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
-    [EnumFlags]
-    [SerializeField] Hand.AttachmentFlags  secondGripAttachmentFlags = Hand.defaultAttachmentFlags | (Hand.AttachmentFlags.SecondHand);
-    WeaponRecoil recoil;
+    [SerializeField] Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+
+
+    [SerializeField] Transform offset;
+
+    [Header("Two Hands")]
+    [SerializeField] bool isTwoHanded = false;
+    [SerializeField] Transform parent;
+    [SerializeField] Hand.AttachmentFlags secondGripAttachmentFlags = (Hand.AttachmentFlags.SecondHand);
     //-------------------------------------------------
     // Called when a Hand starts hovering over this object
     //-------------------------------------------------
 
-    void Awake(){
+    void Awake()
+    {
         interactable = GetComponent<Interactable>();
-        recoil = GetComponent<WeaponRecoil>();
+        if (offset != null)
+        {
+            interactable.handFollowTransform = offset;
+        }
+
+
     }
     private void OnHandHoverBegin(Hand hand)
     {
@@ -41,31 +52,25 @@ public class Grip : MonoBehaviour
     //-------------------------------------------------
     private void HandHoverUpdate(Hand hand)
     {
-        GrabTypes startingGrabType = hand.GetGrabStarting(grabtypes);
-        bool isGrabed = hand.IsGrabEnding(gameObject);
-        bool otherHandIsGrabed = hand.otherHand.IsGrabEnding(gameObject);
 
-        if(isGrabed){
-            if(!otherHandIsGrabed){
-                 hand.AttachObject(gameObject , grabtypes , attachmentFlags);
-            }else {
-                hand.AttachObject(gameObject,grabtypes, secondGripAttachmentFlags);
-            }
-           
-            hand.HoverLock(interactable);
-            if(recoil != null){
-                recoil.AddGrip();
-            }
-        }
-        
+        GrabTypes startingGrabTypes = hand.GetGrabStarting();
 
-        if(!isGrabed){
-            hand.DetachObject(gameObject);
-            hand.HoverUnlock(interactable);
-            if(recoil != null){
-                recoil.RemoveGrip();
+        if (startingGrabTypes != GrabTypes.None)
+        {
+            if (!isTwoHanded)
+            {
+                hand.AttachObject(gameObject, startingGrabTypes, attachmentFlags, offset);
             }
+            else
+            {
+                hand.SetSecondHand(parent);
+                hand.AttachObject(gameObject, startingGrabTypes, Hand.AttachmentFlags.DetachFromOtherHand);
+            }
+
+
         }
+
+
     }
 
 
@@ -94,6 +99,18 @@ public class Grip : MonoBehaviour
     //-------------------------------------------------
     private void HandAttachedUpdate(Hand hand)
     {
+
+        bool IsGrabEnding = hand.IsGrabEnding(this.gameObject);
+          Debug.Log(IsGrabEnding);
+         
+
+        if (IsGrabEnding)
+        {
+          hand.DetachObject(gameObject);
+
+        }
+
+
 
     }
 

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
+using Valve.VR.InteractionSystem;
+
 
 public class JoyMovement : MonoBehaviour {
 
-
+    /* 
     [SerializeField]
     private Transform rig;
 
@@ -42,4 +45,5 @@ public class JoyMovement : MonoBehaviour {
         }
 
     }
+    */
 }

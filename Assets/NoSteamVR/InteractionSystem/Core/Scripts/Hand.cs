@@ -342,7 +342,7 @@ namespace Valve.VR.InteractionSystem
             CleanUpAttachedObjectStack();
 
             //Detach the object if it is already attached so that it can get re-attached at the top of the stack
-            if(ObjectIsAttached(objectToAttach))
+            if (ObjectIsAttached(objectToAttach))
                 DetachObject(objectToAttach);
 
             //Detach from the other hand if requested
@@ -415,10 +415,10 @@ namespace Valve.VR.InteractionSystem
                 if (attachmentOffset != null)
                 {
                     //offset the object from the hand by the positional and rotational difference between the offset transform and the attached object
-                    Quaternion rotDiff = Quaternion.Inverse(attachmentOffset.transform.rotation) * objectToAttach.transform.rotation ;
+                    Quaternion rotDiff = Quaternion.Inverse(attachmentOffset.transform.rotation) * objectToAttach.transform.rotation;
                     objectToAttach.transform.rotation = attachedObject.handAttachmentPointTransform.rotation * rotDiff;
 
-                     
+
 
                     Vector3 posDiff = objectToAttach.transform.position - attachmentOffset.transform.position;
                     objectToAttach.transform.position = attachedObject.handAttachmentPointTransform.position + posDiff;
@@ -477,9 +477,6 @@ namespace Valve.VR.InteractionSystem
                 }
             }
 
-            if(attachedObject.HasAttachFlag(AttachmentFlags.SecondHand)){
-                SetTwoHandedObject(attachedObject.attachedObject);
-            }
 
             attachedObjects.Add(attachedObject);
 
@@ -617,7 +614,7 @@ namespace Valve.VR.InteractionSystem
 
             return Vector3.zero;
         }
-        
+
 
         //-------------------------------------------------
         // Get the world space angular velocity of the VR Hand.
@@ -1015,6 +1012,17 @@ namespace Valve.VR.InteractionSystem
             }
         }
 
+        bool hasSecondHand;
+        Transform objecttorotate;
+        public void SetSecondHand(Transform rotateObject){
+            hasSecondHand = true;
+            objecttorotate = rotateObject;
+        }
+
+        public void RemoveSecondHand(){
+            objecttorotate = null;
+            hasSecondHand = false;
+        }
 
         protected virtual void FixedUpdate()
         {
@@ -1027,23 +1035,50 @@ namespace Valve.VR.InteractionSystem
                     {
                         UpdateAttachedVelocity(attachedInfo);
                     }
+                    
                 }
+
+                if (hasSecondHand)
+                    {
+                        SetTwoHandedObject(objecttorotate);
+                    }
             }
+
+            
         }
 
-        public void SetTwoHandedObject(GameObject attachedObject){
-            float rotSpeed = 100* Time.deltaTime;
-            Quaternion rotation = Quaternion.RotateTowards(transform.rotation , otherHand.transform.rotation,rotSpeed);
-            attachedObject.transform.rotation = rotation;
+        public void SetTwoHadndedObject(AttachedObject attachedObject)
+        {
+            float rotSpeed = 100 * Time.deltaTime;
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, otherHand.transform.rotation, rotSpeed);
+
+            attachedObject.attachedObject.transform.rotation = rotation * Quaternion.Euler(90, 0, 0);
+            // Vector3 direction;
+        }
+
+        public void SetTwoHandedObject(Transform attachedObject)
+        {
+            float rotSpeed = 100 * Time.deltaTime;
+            //Vector3 rotation = Vector3.RotateTowards(transform1.position , transform2.position, 100, 0f);
+            Vector3 lookRotation = transform.position - otherHand.transform.position;
+            Debug.DrawRay(transform.position, lookRotation * 100, Color.red);
+
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, otherHand.transform.rotation, rotSpeed);
+
+            Quaternion rot = Quaternion.LookRotation(lookRotation);
+            
+            attachedObject.transform.rotation = rot ;
+             
             // Vector3 direction;
         }
 
         protected const float MaxVelocityChange = 10f;
-        protected  float VelocityMagic = 6000f;
+        protected float VelocityMagic = 6000f;
         protected const float AngularVelocityMagic = 50f;
         protected const float MaxAngularVelocityChange = 20f;
 
-        public void SetMovementVelocity (float newVelocity){
+        public void SetMovementVelocity(float newVelocity)
+        {
             VelocityMagic = newVelocity;
         }
         protected void UpdateAttachedVelocity(AttachedObject attachedObjectInfo)
@@ -1110,21 +1145,21 @@ namespace Valve.VR.InteractionSystem
             {
                 Gizmos.color = Color.green;
                 float scaledHoverRadius = hoverSphereRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(hoverSphereTransform));
-                Gizmos.DrawWireSphere(hoverSphereTransform.position, scaledHoverRadius/2);
+                Gizmos.DrawWireSphere(hoverSphereTransform.position, scaledHoverRadius / 2);
             }
 
             if (useControllerHoverComponent && mainRenderModel != null && mainRenderModel.IsControllerVisibile())
             {
                 Gizmos.color = Color.blue;
                 float scaledHoverRadius = controllerHoverRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(this.transform));
-                Gizmos.DrawWireSphere(mainRenderModel.GetControllerPosition(controllerHoverComponent), scaledHoverRadius/2);
+                Gizmos.DrawWireSphere(mainRenderModel.GetControllerPosition(controllerHoverComponent), scaledHoverRadius / 2);
             }
 
             if (useFingerJointHover && mainRenderModel != null && mainRenderModel.IsHandVisibile())
             {
                 Gizmos.color = Color.yellow;
                 float scaledHoverRadius = fingerJointHoverRadius * Mathf.Abs(SteamVR_Utils.GetLossyScale(this.transform));
-                Gizmos.DrawWireSphere(mainRenderModel.GetBonePosition((int)fingerJointHover), scaledHoverRadius/2);
+                Gizmos.DrawWireSphere(mainRenderModel.GetBonePosition((int)fingerJointHover), scaledHoverRadius / 2);
             }
         }
 
@@ -1317,7 +1352,7 @@ namespace Valve.VR.InteractionSystem
 
             bool hadOldRendermodel = mainRenderModel != null;
             EVRSkeletalMotionRange oldRM_rom = EVRSkeletalMotionRange.WithController;
-            if(hadOldRendermodel)
+            if (hadOldRendermodel)
                 oldRM_rom = mainRenderModel.GetSkeletonRangeOfMotion;
 
 

@@ -20,7 +20,7 @@ public class WeaponRecoil : MonoBehaviour
     public void AddRecoil()
     {
         Vector3 recoilForce = (-transform.forward + transform.up / 3) * force;
-        recoilForce /= grip;
+        //recoilForce /= grip;
         rb.AddForceAtPosition(recoilForce, forcePosition.position, ForceMode.Impulse);
     }
 

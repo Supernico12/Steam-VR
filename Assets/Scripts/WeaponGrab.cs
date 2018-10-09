@@ -93,6 +93,7 @@ public class WeaponGrab : MonoBehaviour {
                 Collider col = magazine.GetComponent<Collider>();
                 col.enabled = true;
             }
+			
         }
 
         isAutomatic = weapon.isAutomatic;
