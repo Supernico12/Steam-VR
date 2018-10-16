@@ -9,7 +9,7 @@ public class Grip : MonoBehaviour
     private Interactable interactable;
     [SerializeField] GrabTypes grabtypes;
     [EnumFlags]
-    [SerializeField] Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+    [SerializeField] Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags;
 
 
     [SerializeField] Transform offset;
@@ -25,10 +25,7 @@ public class Grip : MonoBehaviour
     void Awake()
     {
         interactable = GetComponent<Interactable>();
-        if (offset != null)
-        {
-            interactable.handFollowTransform = offset;
-        }
+        
 
 
     }
@@ -60,6 +57,7 @@ public class Grip : MonoBehaviour
             if (!isTwoHanded)
             {
                 hand.AttachObject(gameObject, startingGrabTypes, attachmentFlags, offset);
+              
             }
             else
             {
@@ -101,7 +99,7 @@ public class Grip : MonoBehaviour
     {
 
         bool IsGrabEnding = hand.IsGrabEnding(this.gameObject);
-          Debug.Log(IsGrabEnding);
+        
          
 
         if (IsGrabEnding)
