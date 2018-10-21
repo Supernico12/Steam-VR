@@ -9,7 +9,7 @@ public class SlowTime : ShotInteractable {
 
 
 	[SerializeField] Transform player;
-
+    public float time;
 	Hand[] hands;
 
 	public override void Interact(){
