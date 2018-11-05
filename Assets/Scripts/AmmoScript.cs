@@ -8,7 +8,7 @@ public class AmmoScript
     public string name;
     public int quantity;
     public AmmoTypes type;
-	public Mesh mesh;
+    public Mesh mesh;
     public AmmoScript(AmmoTypes type, int quantity)
     {
         this.type = type;
@@ -18,4 +18,3 @@ public class AmmoScript
 
 }
 
-public enum AmmoTypes { PistolAmmo, RifleAmmo, HeavyAmmo, SniperAmmo }

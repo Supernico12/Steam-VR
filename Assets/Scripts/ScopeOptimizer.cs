@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class ScopeOptimizer : MonoBehaviour {
+public class ScopeOptimizer : MonoBehaviour
+{
 
-	[SerializeField]
-	Camera cam;
+    [SerializeField]
+    Camera cam;
 
-	private void OnAttachedToHand()
+    private void OnAttachedToHand()
     {
-		cam.enabled = true;
-		Debug.Log("enabeling Camera");
+        cam.enabled = true;
+
 
     }
 
-	private void OnDetachedFromHand()
+    private void OnDetachedFromHand()
     {
-		cam.enabled = false;
-		Debug.Log("camera not enable");
+        cam.enabled = false;
+
 
     }
 }
