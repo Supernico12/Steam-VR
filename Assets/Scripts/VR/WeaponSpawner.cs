@@ -10,7 +10,7 @@ public class WeaponSpawner : MonoBehaviour
     GameObject weapon;
     Interactable interactable;
     Hand.AttachmentFlags weaponFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.TurnOnKinematic) | (Hand.AttachmentFlags.TurnOffGravity) | (Hand.AttachmentFlags.VelocityMovement);
-
+    VRInventory inventory;
 
 
 
@@ -28,8 +28,10 @@ public class WeaponSpawner : MonoBehaviour
 
             hand.HoverLock(instance.GetComponent<Interactable>());
             hand.AttachObject(instance, startingGrabTypes, weaponFlags, attachmentOffset: offset);
+            inventory.DestroyPlaceholds();
 
-            Destroy(gameObject, 1);
+
+
 
 
 

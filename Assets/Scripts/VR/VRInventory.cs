@@ -16,6 +16,10 @@ public class VRInventory : MonoBehaviour
     [SerializeField] GameObject[] placeHolders;
 
 
+    GameObject[] placeHold1;
+
+
+
     // Update is called once per frame
     void Update()
     {
@@ -28,19 +32,29 @@ public class VRInventory : MonoBehaviour
 
     void SpawnPalceHolders(GameObject hand)
     {
-        Transform[] position = new Transform[3];
+        Transform[] position = new Transform[placeHolders.Length];
         for (int i = 0; i < placeHolders.Length; i++)
         {
             position[i] = hand.transform.Find("SpawnPosition" + i);
         }
 
+        DestroyPlaceholds();
+
         for (int i = 0; i < placeHolders.Length; i++)
         {
-            Instantiate(placeHolders[i], position[i].position, Quaternion.identity);
+            placeHold1[i] = Instantiate(placeHolders[i], position[i].position, Quaternion.identity);
         }
 
 
 
+    }
+
+    public void DestroyPlaceholds()
+    {
+        foreach (GameObject placehold in placeHold1)
+        {
+            Destroy(placehold);
+        }
     }
 
 
