@@ -11,7 +11,7 @@ public class StickManipulation : MonoBehaviour
     [SerializeField] float sensibility = 1;
     [SerializeField] float defaultposY = 32;
     float positionY;
-    public bool isMoving;
+    public bool isMoving = true;
 
     /*
     Left Controller Trackpad (2)		Left Controller Trackpad	Horizontal Movement		1	–1.0 to 1.0

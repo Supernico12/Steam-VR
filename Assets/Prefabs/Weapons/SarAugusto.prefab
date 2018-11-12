@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: 114005343105152928}
   - component: {fileID: 65000980315322882}
   - component: {fileID: 65036812158743914}
+  - component: {fileID: 114542680226125850}
   m_Layer: 0
   m_Name: SarAugusto
   m_TagString: Untagged
@@ -6170,6 +6171,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &114542680226125850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1818094532163876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554e6141541f9b843811623992b2cbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 20527083271629350}
 --- !u!114 &114567650964257440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6248,7 +6261,7 @@ MonoBehaviour:
   isAutomatic: 1
   ShootDelay: 30
   damage: 5
-  maxAmmo: 800
+  maxAmmo: 80
   hasMagazine: 1
 --- !u!114 &114991543923809866
 MonoBehaviour:
