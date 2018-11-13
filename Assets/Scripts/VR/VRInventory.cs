@@ -16,7 +16,8 @@ public class VRInventory : MonoBehaviour
     [SerializeField] GameObject[] placeHolders;
 
 
-    GameObject[] placeHold1;
+    //GameObject[] placeHold1;
+	List<GameObject> placeHold1 = new List<GameObject>();
 
 
 
@@ -28,7 +29,14 @@ public class VRInventory : MonoBehaviour
             SpawnPalceHolders(hand1);
         }
 
+	 if (SteamVR_Input.__actions_default_in_Inventory.GetStateDown(otherHand))
+        {
+            SpawnPalceHolders(hand2);
+        }
+
     }
+
+
 
     void SpawnPalceHolders(GameObject hand)
     {
@@ -42,7 +50,10 @@ public class VRInventory : MonoBehaviour
 
         for (int i = 0; i < placeHolders.Length; i++)
         {
-            placeHold1[i] = Instantiate(placeHolders[i], position[i].position, Quaternion.identity);
+           GameObject obj = Instantiate(placeHolders[i], position[i].position, Quaternion.identity);
+            WeaponSpawner spawner = obj.GetComponent<WeaponSpawner>();
+            spawner.SetInventory(this);
+		placeHold1.Add(obj);
         }
 
 
@@ -53,8 +64,10 @@ public class VRInventory : MonoBehaviour
     {
         foreach (GameObject placehold in placeHold1)
         {
+	if(placehold != null)
             Destroy(placehold);
         }
+	placeHold1.Clear();
     }
 
 

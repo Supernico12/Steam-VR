@@ -14,6 +14,11 @@ public class WeaponSpawner : MonoBehaviour
 
 
 
+    public void SetInventory(VRInventory inv)
+    {
+        inventory = inv;
+    }
+
     void HandHoverUpdate(Hand hand)
     {
 
