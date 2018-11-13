@@ -36,6 +36,14 @@
       "requirement": "optional"
     },
     {
+      "name": "/actions/default/in/Inventory",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TrackPad",
+      "type": "vector2"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },

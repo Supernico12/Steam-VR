@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57f22d3d0c01ef245bba8d0aefd9ad09, type: 2}
   - {fileID: 11400000, guid: dec25ee21398e334bb3a71cc9659d857, type: 2}
   - {fileID: 11400000, guid: f93296f655a47cb4eb91e6ab20deb2fb, type: 2}
-  - {fileID: 11400000, guid: 534eef6d1f3e7a341abeb62663c67a5f, type: 2}
   - {fileID: 11400000, guid: 5848ba5742e29094baaf5725f642357d, type: 2}
+  - {fileID: 11400000, guid: 534eef6d1f3e7a341abeb62663c67a5f, type: 2}
   InteractUI: {fileID: 11400000, guid: a10a3ea845da6d347b753b04e8024d90, type: 2}
   Teleport: {fileID: 11400000, guid: a685cf29c1293b74592ddcc01032b683, type: 2}
   GrabPinch: {fileID: 11400000, guid: 2a3df5a8e64bceb4abcfecab44105105, type: 2}
@@ -32,5 +32,5 @@ MonoBehaviour:
   SkeletonLeftHand: {fileID: 11400000, guid: 57f22d3d0c01ef245bba8d0aefd9ad09, type: 2}
   SkeletonRightHand: {fileID: 11400000, guid: dec25ee21398e334bb3a71cc9659d857, type: 2}
   Squeeze: {fileID: 11400000, guid: f93296f655a47cb4eb91e6ab20deb2fb, type: 2}
-  TrackPad: {fileID: 11400000, guid: 534eef6d1f3e7a341abeb62663c67a5f, type: 2}
   Inventory: {fileID: 11400000, guid: 5848ba5742e29094baaf5725f642357d, type: 2}
+  TrackPad: {fileID: 11400000, guid: 534eef6d1f3e7a341abeb62663c67a5f, type: 2}
