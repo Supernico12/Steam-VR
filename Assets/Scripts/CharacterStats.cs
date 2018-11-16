@@ -14,7 +14,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] GameObject ammoDrop;
 
 
-
+    public GameObject deathUI;
 
     public event System.Action OnTakeDamage;
 
@@ -23,14 +23,18 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (currenthealth - damage < health)
+        if (currenthealth - damage <= health)
         {
             currenthealth -= damage;
         }
 
         if (currenthealth <= 0)
         {
+            if (deathUI == null) { 
             Die();
+            }
+            else
+            { deathUI.SetActive(true); }
         }
         if (damage > 0)
         {
@@ -42,15 +46,18 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Die()
     {
-
+        level.RemoveEnemy(1);
+        Instantiate(ammoDrop, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     void Start()
     {
-
+        level = LevelManager.instance;
+        
         currenthealth = health;
-
+        if (level != null)
+            level.AddEnemy(1);
     }
 
     public float GetHealth
@@ -61,9 +68,8 @@ public class CharacterStats : MonoBehaviour
 
         }
     }
-    public float GetMaxHealth
-    {
-
+    public float GetMaxHealth { 
+   
 
         get
         {

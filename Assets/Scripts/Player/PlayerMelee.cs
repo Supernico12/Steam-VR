@@ -13,9 +13,11 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] GameObject mesh;
     [SerializeField] GameObject uiAmmo;
     [SerializeField] float fieldOfView;
+    [SerializeField] Animator animator;
     float currentAttack;
     bool isEquiped;
     PlayerFighting fighting;
+
 
     int attackIndex;
     Camera cam;
@@ -28,6 +30,7 @@ public class PlayerMelee : MonoBehaviour
         //OnEquip();
         cam.fieldOfView = fieldOfView;
         isEquiped = true;
+
     }
     public void DisEquip()
     {
@@ -62,10 +65,21 @@ public class PlayerMelee : MonoBehaviour
 
     void Attack()
     {
+        animator.SetTrigger("attack");
+
+    }
+
+    public void FinishAttack()
+    {
+
         Collider[] cols = Physics.OverlapSphere(transform.position + (offset * cam.transform.forward), attackRadious, hitMask);
         foreach (Collider obj in cols)
         {
             CharacterStats stat = obj.GetComponent<CharacterStats>();
+            if (stat == null)
+            {
+                stat = obj.GetComponentInParent<CharacterStats>();
+            }
             if (stat != null)
             {
                 stat.TakeDamage(damage);
@@ -80,6 +94,7 @@ public class PlayerMelee : MonoBehaviour
         uiAmmo.SetActive(false);
         cam.fieldOfView = fieldOfView;
         fighting.DisEquip();
+        fighting.arma = 0;
     }
     void OnDrawGizmosSelected()
     {

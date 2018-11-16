@@ -22,6 +22,8 @@ public class PlayerFighting : MonoBehaviour
     public event System.Action OnReload;
     public event System.Action OnShoot;
 
+    public int arma;
+
     bool isEquiped;
     bool isScoped;
     float camerDefaultFieldOfView;
@@ -32,7 +34,7 @@ public class PlayerFighting : MonoBehaviour
     private void Start()
     {
         cam = Camera.main;
-        camerDefaultFieldOfView = cam.fieldOfView;
+        camerDefaultFieldOfView = 80;
         //Testing
         int numberofWeaponsMeshes = System.Enum.GetNames(typeof(WeaponType)).Length;
         weaponMeshes = new GameObject[numberofWeaponsMeshes];
@@ -77,8 +79,8 @@ public class PlayerFighting : MonoBehaviour
                         weapon.shootMuzzle.Play();
                     }
 
-                    // Shoot Sound place 
-                    //Debug.Log("Disparar" + (int)weapon.type);
+                    // Shoot Sound place PREGUNTR NICOOOOOOOOOOOOOOOOOOO
+                    arma = (int)weapon.type;
 
                     //AkSoundEngine.PostEvent("Play_SMG_Shot", gameObject);
                     RaycastHit hit;
@@ -88,6 +90,10 @@ public class PlayerFighting : MonoBehaviour
                     {
                         ShotEffect(hit);
                         CharacterStats stats = hit.transform.GetComponent<CharacterStats>();
+                        if (stats == null)
+                        {
+                            stats = hit.transform.GetComponentInParent<CharacterStats>();
+                        }
                         if (stats != null)
                         {
                             Attack(stats);
@@ -188,7 +194,8 @@ public class PlayerFighting : MonoBehaviour
         //  Debug.Log(hit.transform.name);
         if (weapon.hitParticle != null)
         {
-            Instantiate(weapon.hitParticle, hit.point, Quaternion.LookRotation(hit.normal), hit.transform);
+            GameObject shotpart = Instantiate(weapon.hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+            shotpart.transform.parent = hit.transform;
 
         }
 
