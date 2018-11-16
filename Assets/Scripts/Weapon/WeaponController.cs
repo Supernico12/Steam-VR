@@ -24,6 +24,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] float ShootDelay;
     [SerializeField] float damage;
     [SerializeField] float maxAmmo;
+    [SerializeField] bool isForceArctive = false;
 
     [HideInInspector] public bool hasMagazine = true;
 
@@ -94,10 +95,14 @@ public class WeaponController : MonoBehaviour
         {
             targetStats.TakeDamage(damage);
         }
-        Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
-        if (rb != null)
+
+        if (isForceArctive)
         {
-            rb.AddForceAtPosition(hit.point * (damage / 2), hit.point, ForceMode.Impulse);
+            Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddForceAtPosition(hit.point * (damage / 2), hit.point, ForceMode.Impulse);
+            }
         }
         ShotInteractable interactable = hit.transform.GetComponent<ShotInteractable>();
         if (interactable != null)
