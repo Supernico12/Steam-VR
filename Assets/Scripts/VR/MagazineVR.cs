@@ -136,7 +136,7 @@ public class MagazineVR : MonoBehaviour
     {
         weapon.hasMagazine = true;
         rb.isKinematic = true;
-        col.isTrigger =true;
+        col.isTrigger = true;
         transform.SetPositionAndRotation(defaultPosition.position, defaultPosition.rotation);
         if (!transform.IsChildOf(grx))
         {
@@ -150,7 +150,7 @@ public class MagazineVR : MonoBehaviour
         if (w != null)
             w.SetMagazine(transform);
 
-        WeaponGrab l = weapon.GetComponent<WeaponGrab>();
+        WeaponGrab l = weapon.gameObject.GetComponent<WeaponGrab>();
         if (l != null)
             l.SetMagazine(transform);
         isAttached = true;
