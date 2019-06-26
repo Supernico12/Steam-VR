@@ -37,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         playerStats = player.GetComponent<CharacterStats>();
-
+        player = dointDestroy.playerInstance.GetComponent<Transform>();
 
     }
 
@@ -45,6 +45,8 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player != null)
+        {
 
         if (Vector3.Distance(transform.position, player.position) < range)
         {
@@ -59,6 +61,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
+        }
     }
 
 

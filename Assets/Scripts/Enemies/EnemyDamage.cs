@@ -39,8 +39,8 @@ public class EnemyDamage : MonoBehaviour
     #endregion 
     RaycastHit hit;
     #region Timer
-    int time1;
-    int time2;
+    float time1;
+    float time2;
     public int Cooldown;
     Vector3 hitPoint;
     public GameObject linePrefab;
@@ -115,8 +115,8 @@ public class EnemyDamage : MonoBehaviour
     }
     public void Attack()
     {
-        time1++;
-        time2++;
+        time1 += Time.deltaTime;
+        time2 += Time.deltaTime;
         hitPoint += (player.position - hitPoint) * speed * Time.deltaTime;
 
         movement.canMove = true;
@@ -162,7 +162,7 @@ public class EnemyDamage : MonoBehaviour
 
 
         Debug.Log("Damaging");
-        playerHealth.TakeDamage(enemyDamage);
+       // playerHealth.TakeDamage(enemyDamage);
 
     }
 }

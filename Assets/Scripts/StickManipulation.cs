@@ -9,8 +9,8 @@ public class StickManipulation : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] Transform cameratransform;
     [SerializeField] float sensibility = 1;
-    [SerializeField] float defaultposY = 32;
-    float positionY;
+    [SerializeField] public float defaultposY = 32;
+    public float positionY;
     public bool isMoving = true;
 
     /*

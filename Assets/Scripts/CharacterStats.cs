@@ -46,8 +46,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Die()
     {
-        level.RemoveEnemy(1);
-        Instantiate(ammoDrop, transform.position, Quaternion.identity);
+        //level.RemoveEnemy(1);
+        //Instantiate(ammoDrop, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
