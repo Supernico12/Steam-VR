@@ -1563,8 +1563,9 @@ MonoBehaviour:
   smokeParticles: {fileID: 0}
   isAutomatic: 1
   ShootDelay: 6
-  damage: 10
-  maxAmmo: 30
+  damage: 15
+  maxAmmo: 60
+  isForceArctive: 0
   hasMagazine: 0
 --- !u!114 &114999062241735332
 MonoBehaviour:
