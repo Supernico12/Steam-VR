@@ -162,7 +162,7 @@ public class EnemyDamage : MonoBehaviour
 
 
         Debug.Log("Damaging");
-       // playerHealth.TakeDamage(enemyDamage);
+        playerHealth.TakeDamage(enemyDamage);
 
     }
 }

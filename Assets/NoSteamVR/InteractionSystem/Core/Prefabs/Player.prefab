@@ -74,13 +74,15 @@ GameObject:
   - component: {fileID: 447954}
   - component: {fileID: 11465950}
   - component: {fileID: 114907278467569068}
+  - component: {fileID: 114185594298945452}
+  - component: {fileID: 114086711779354422}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &109154
 GameObject:
   m_ObjectHideFlags: 1
@@ -146,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &125964
 GameObject:
   m_ObjectHideFlags: 1
@@ -199,7 +201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &135526
 GameObject:
   m_ObjectHideFlags: 1
@@ -436,7 +438,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 0, z: -1.5487}
+  m_LocalPosition: {x: 24.11, y: 28.93, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 494198}
@@ -570,7 +572,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165334}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.051999986, y: -0.015699983, z: -0.11630082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1019,7 +1021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1731d642c0b250b48bb8cdfb153d9792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 0}
+  head: {fileID: 429506}
 --- !u!114 &11461284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1207,7 +1209,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 191996}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.25
   m_Height: 1.5
   m_Direction: 1
@@ -1450,13 +1452,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014277073068}
-  m_LocalRotation: {x: 0.32650566, y: -0.21263102, z: 0.6272114, w: 0.67437977}
+  m_LocalRotation: {x: -0.21263102, y: -0.32650566, z: 0.67437977, w: -0.6272114}
   m_LocalPosition: {x: 0.051999986, y: -0.0157, z: -0.11630082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476540}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 135, y: -170, z: -90}
+  m_LocalEulerAnglesHint: {x: 135, y: -170, z: 90}
 --- !u!4 &4000011699137176
 Transform:
   m_ObjectHideFlags: 1
@@ -1636,7 +1638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27991c206a5e66147bb8ee3ef31c8bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionSet: {fileID: 11400000, guid: 02e43f1f8d44c8047909f1208e9fa107, type: 2}
+  actionSet: {fileID: 0}
   disableAllOtherActionSets: 0
   activateOnStart: 1
   deactivateOnDestroy: 1
@@ -1773,9 +1775,38 @@ MonoBehaviour:
   player: {fileID: 447954}
   cameratransform: {fileID: 429506}
   sensibility: 10
-  defaultposY: 0
+  defaultposY: 28
+  positionY: 0
   isMoving: 1
   thisHand: 1
+--- !u!114 &114086711779354422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fa7546c37d2694fa1735452c028562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthUI: {fileID: 0}
+  recoveryTime: 3
+--- !u!114 &114185594298945452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1135b1b2fddc4b34f865f46dc132b484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  currenthealth: 0
+  ammoDrop: {fileID: 0}
+  deathUI: {fileID: 0}
 --- !u!114 &114348538682559578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1802,6 +1833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2973a5a2c64d28c4785f54818be8f769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 429506}
+  codes: 31000000320000003300000034000000
 --- !u!114 &114959362278040882
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class dointDestroy : MonoBehaviour {
+public class dointDestroy : MonoBehaviour
+{
 
     public static dointDestroy playerInstance;
+    [SerializeField]
+    public Transform playerTransform;
 
     public KeyCode[] codes;
     private void Awake()
-    { 
-        if(playerInstance == null)
+    {
+        if (playerInstance == null)
         {
 
-        DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(this.gameObject);
             playerInstance = this;
         }
-        else if(playerInstance != this)
+        else if (playerInstance != this)
         {
             Destroy(gameObject);
         }
@@ -27,16 +30,17 @@ public class dointDestroy : MonoBehaviour {
 
     private void Update()
     {
-        for( int i = 0; i < codes.Length; i++)
+        for (int i = 0; i < codes.Length; i++)
         {
-            if (Input.GetKeyDown(codes[i])) {
+            if (Input.GetKeyDown(codes[i]))
+            {
 
                 SceneManager.LoadScene(i + 1);
             }
 
 
         }
-            
-            
+
+
     }
 }

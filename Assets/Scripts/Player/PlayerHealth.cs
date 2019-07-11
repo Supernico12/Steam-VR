@@ -36,10 +36,10 @@ public class PlayerHealth : MonoBehaviour
     void UpdateHealth()
     {
 
-        Color c = healthUI.color;
-        c.a = -((playerStats.GetHealth / playerStats.GetMaxHealth) - 1);
+        // Color c = healthUI.color;
+        //c.a = -((playerStats.GetHealth / playerStats.GetMaxHealth) - 1);
 
-        healthUI.color = c;
+        //healthUI.color = c;
 
 
         // .8 / 1

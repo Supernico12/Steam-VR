@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     int distance;
     public float speed;
     public NavMeshAgent agent;
-    public Transform destination;
+
     public bool canMove = true;
     CharacterStats playerStats;
     [SerializeField] float damage = 4;
@@ -36,8 +36,8 @@ public class EnemyMovement : MonoBehaviour
         player = PlayerManager.instance.playertransform;
 
         agent = GetComponent<NavMeshAgent>();
-        playerStats = player.GetComponent<CharacterStats>();
-        player = dointDestroy.playerInstance.GetComponent<Transform>();
+        playerStats = player.GetComponentInParent<CharacterStats>();
+        //player = dointDestroy.playerInstance.GetComponent<Transform>();
 
     }
 
@@ -45,21 +45,21 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player != null)
+        if (player != null)
         {
 
-        if (Vector3.Distance(transform.position, player.position) < range)
-        {
-            if (canMove)
+            if (Vector3.Distance(transform.position, player.position) < range)
             {
-                destination = player;
-                agent.SetDestination(destination.position);
+                if (canMove)
+                {
+
+                    agent.SetDestination(player.position);
+                }
+                if (Vector3.Distance(transform.position, player.position) < 4f)
+                {
+                    playerStats.TakeDamage(Time.deltaTime * damage);
+                }
             }
-            if (Vector3.Distance(transform.position, player.position) < 4f)
-            {
-                //playerStats.TakeDamage(Time.deltaTime * damage);
-            }
-        }
 
         }
     }
